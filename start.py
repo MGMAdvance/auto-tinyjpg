@@ -47,7 +47,35 @@ def compress():
 				
 def main():
 	api = tinify.key = api_key
-	
+	proxy = input("Use proxy? (Y/N) ")
+
+	if proxy == 'Y' or proxy == 'y' or proxy == 'Yes' or proxy == 'yes':
+		proxy = input("Need a authentication?")
+		if proxy == 'Y' or proxy == 'y' or proxy == 'Yes' or proxy == 'yes':
+			ip = input("Your IP proxy: ")
+			port = input("Port: ")
+			user = input("Username: ")
+			pwd = input("Password: ")
+			
+			try:
+				proxy_load = tinify.proxy = "https://"+user+":"+pwd+"@"+ip+":"+port
+				print("\nConnected!\n")
+			except:
+				proxy_load = tinify.proxy = "http://"+user+":"+pwd+"@"+ip+":"+port
+				print("\nConnected!\n")
+		else:
+			ip = input("Your IP proxy: ")
+			port = input("Port: ")
+			
+			try:
+				proxy_load = tinify.proxy = "https://"+ip+":"+port
+				print("\nConnected!\n")
+			except:
+				proxy_load = tinify.proxy = "http://"+ip+":"+port
+				print("\nConnected!\n")
+
+
+
 	if create_folder() == False:
 		print('Failed to create an output folder...')
 		exit()
