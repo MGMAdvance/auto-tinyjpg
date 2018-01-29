@@ -6,7 +6,7 @@ import tinify
 import shutil
 
 api_key = input('Please, enter your API Key from TinyJPG: ')
-ext = ['jpg', 'jpeg','png','gif']
+ext = ['jpg', 'jpeg','png']
 
 def create_folder():
 	try:
