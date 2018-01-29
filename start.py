@@ -25,8 +25,8 @@ def compress_load(pack):
 			#fullpath = pack[0] + "\\" + f
 			#shutil.copy(fullpath, 'Output')
 			#print(fullpath)
-			#source = tinify.from_file(pack)
-			#source.to_file("Output/"+pack)
+			source = tinify.from_file(pack)
+			source.to_file("Output/"+pack)
 			print(pack)
 
 def compress():
