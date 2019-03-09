@@ -4,21 +4,27 @@
 import os
 import tinify
 import shutil
+from colorama import init, Fore, Back, Style
+from termcolor import colored
+
+init() # Initialize the colorama
 
 api_key = input('Please, enter your API Key from TinyJPG: ')
 ext = ['jpg', 'jpeg','png']
 
+# Create or verify if a folder exist
 def create_folder():
 	try:
 		os.makedirs('Output')
-		print('Output folder created!')
+		print( colored('Output folder created!', 'green') )
 		return True
 	except FileExistsError:
-		print('Output folder already!')
+		print(colored('Output folder already!', 'yellow' ) )
 		return True
 	except:
 		return False
 
+# Get path/file from compress() for processing image
 def compress_load(pack):
 	for r in ext:
 		if pack.endswith(r):
@@ -27,26 +33,27 @@ def compress_load(pack):
 			#print(fullpath)
 			source = tinify.from_file(pack)
 			source.to_file("Output/"+pack)
-			print(pack)
+			print( colored( '| ' , 'red' ) + pack )
 
+# Search the folder for images available
 def compress():
 	counter=0
 	local = os.getcwd()
-	print("Current folder > "+local)
-	print("\n+--------------------------------+")
-	print("| FILES                          |")
-	print("+--------------------------------+")
+	print( colored("Current folder > ", "magenta") + local )
+	print( colored("\n+--------------------------------+", "cyan" ) )
+	print( colored("| FILES                          |",   "cyan" ) )
+	print( colored("+--------------------------------+",   "cyan" ) )
 
 	for pack in os.listdir(local):
 		compress_load(pack)
 		counter+=1
 
-	print("+--------------------------------+")
-	print('| FILES: '+str(counter)+'  |')
-	print("+--------------------------------+\n")			
-				
-def main():
-	api = tinify.key = api_key
+	print( colored("+--------------------------------+",   "cyan" ) )
+	print( colored('| FILES: '+str(counter)+'      |',     "cyan" ) )
+	print( colored("+--------------------------------+\n"  "cyan" ) )			
+
+# If want to use a proxy
+def proxyMode():
 	proxy = input("Use proxy? (Y/N) ")
 
 	if proxy == 'Y' or proxy == 'y' or proxy == 'Yes' or proxy == 'yes':
@@ -59,28 +66,32 @@ def main():
 			
 			try:
 				proxy_load = tinify.proxy = "https://"+user+":"+pwd+"@"+ip+":"+port
-				print("\nConnected!\n")
+				print( colored( "\nConnected!\n" , "green" ) )
 			except:
 				proxy_load = tinify.proxy = "http://"+user+":"+pwd+"@"+ip+":"+port
-				print("\nConnected!\n")
+				print( colored( "\nConnected!\n" , "green" ) )
 		else:
 			ip = input("Your IP proxy: ")
 			port = input("Port: ")
 			
 			try:
 				proxy_load = tinify.proxy = "https://"+ip+":"+port
-				print("\nConnected!\n")
+				print( colored( "\nConnected!\n" , "green" ) )
 			except:
 				proxy_load = tinify.proxy = "http://"+ip+":"+port
-				print("\nConnected!\n")
+				print( colored( "\nConnected!\n" , "green" ) )	
 
+# Run script
+def main():
+	tinify.key = api_key
 
+	proxyMode()
 
 	if create_folder() == False:
-		print('Failed to create an output folder...')
+		print( colored('Failed to create an output folder...', 'red' ) )
 		exit()
 	else:
 		compress()
 
-	
-main()
+if __name__ == '__main__':
+	main()
