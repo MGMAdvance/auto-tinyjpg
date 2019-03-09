@@ -5,8 +5,14 @@ Script for compressing all files in the folder with TinyJPG.
 All dependencies in `requirements.txt`
 * Python 3.x
 * Tinify
+* colorama
+* termcolor
 
 ## How to use
+First install all dependencies with `requirements.txt`
+
+> $ pip install -r requirements.txt
+
 Paste `start.py` in the folder with photos you want to compress.
 
 > $ python start.py
